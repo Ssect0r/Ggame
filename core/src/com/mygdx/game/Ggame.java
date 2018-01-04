@@ -39,7 +39,7 @@ public class Ggame extends Game {
 
 	@Override
 	public void render () {
-		//cam.update();
+		cam.update();
 		batch.setProjectionMatrix(cam.combined());
 		super.render();
 	}

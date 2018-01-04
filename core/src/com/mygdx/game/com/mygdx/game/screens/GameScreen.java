@@ -2,6 +2,7 @@ package com.mygdx.game.com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -10,6 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Ggame;
 import com.mygdx.game.objects.Player;
+
+import static com.mygdx.game.objects.Player.PLAYER_HEIGHT;
+import static com.mygdx.game.objects.Player.PLAYER_WIDTH;
 
 public class GameScreen implements Screen {
 
@@ -36,7 +40,7 @@ public class GameScreen implements Screen {
     {
         if(Gdx.input.isTouched())
         {
-            destination=new Vector2(ggame.cam.getInputInGameWorld().x - player.getWidth()/2, ggame.VIRTUAL_HEIGHT -1 -ggame.cam.getInputInGameWorld().y - player.getHeight()/2);
+            destination=new Vector2(ggame.cam.getInputInGameWorld().x - PLAYER_WIDTH/2, ggame.VIRTUAL_HEIGHT -1 -ggame.cam.getInputInGameWorld().y - PLAYER_HEIGHT/2);
             //destination=new Vector2(Gdx.input.getX() - player.getWidth()/2, ggame.VIRTUAL_HEIGHT - 1 - Gdx.input.getY() - player.getHeight()/2);
             player.setDestination(destination.x,destination.y);
             System.out.println(Gdx.input.getX() + " = X" + Gdx.input.getY() + "= Y");
@@ -58,10 +62,10 @@ public class GameScreen implements Screen {
         stateTime+=delta;
         ggame.batch.begin();
 
-        //ggame.batch.draw(backgroud,0,0);
+        ggame.batch.draw(backgroud,0,0);
 
         update(delta);
-        ggame.batch.draw(player.getTexture(),player.getX(),player.getY());
+        ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime,true),player.getCollisionRect().getX(),player.getCollisionRect().getY(),PLAYER_WIDTH,PLAYER_HEIGHT);
 
       //  player.draw(ggame.batch);
         ggame.batch.end();

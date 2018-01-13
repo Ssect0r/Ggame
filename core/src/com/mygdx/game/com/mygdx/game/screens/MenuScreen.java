@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Ggame;
 import com.badlogic.gdx.math.Rectangle;
+import tools.InputController;
 
 import java.awt.*;
 
@@ -21,6 +22,7 @@ public class MenuScreen implements Screen {
     private static final int PLAY_BUTTON_WIDTH = 300;
     private static final int PLAY_BUTTON_HEIGHT = 120;
     private static final int PLAY_BUTTON_Y = 200;
+    public InputController inputController;
 
 
     final Ggame ggame;
@@ -36,21 +38,11 @@ public class MenuScreen implements Screen {
         playButtonActive = new Texture(Gdx.files.internal("play_button_active.png"));
         playButtonInactive = new Texture(Gdx.files.internal("play_button_inactive.png"));
         background = new Texture(Gdx.files.internal("MenuBackground.png"));
-        final MenuScreen menuScreen = this;
+        MenuScreen menuScreen = this;
+//        inputController = new InputController();
+//        Gdx.input.setInputProcessor(inputController);
 
-        Gdx.input.setInputProcessor(new InputAdapter(){
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-                int x = Ggame.VIRTUAL_WIDTH / 2 - PLAY_BUTTON_WIDTH/2;
-                if(ggame.cam.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH && ggame.cam.getInputInGameWorld().x >x && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT  && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y > PLAY_BUTTON_Y )
-                {
-                    menuScreen.dispose();
-                    ggame.setScreen(ggame.gameScreen);
-                }
-                return super.touchDown(screenX, screenY, pointer, button);
-            }
-        });
     }
 
     @Override
@@ -74,6 +66,16 @@ public class MenuScreen implements Screen {
         }
         else{
             ggame.batch.draw(playButtonInactive,x,PLAY_BUTTON_Y,PLAY_BUTTON_WIDTH,PLAY_BUTTON_HEIGHT);
+        }
+
+
+        if(ggame.cam.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH && ggame.cam.getInputInGameWorld().x >x && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT  && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y > PLAY_BUTTON_Y )
+        {
+            ggame.setMultiplexer();
+           this.dispose();
+            ggame.setScreen(ggame.gameScreen);
+//            ggame.multiplexer.removeProcessor(this.inputController);
+
         }
 
         ggame.batch.end();

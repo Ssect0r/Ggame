@@ -69,6 +69,7 @@ public class Hud {
 
     public Hud(SpriteBatch sb)
     {
+
         this.sb = sb;
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -76,9 +77,8 @@ public class Hud {
 //        inputControllerHud = new InputController();
 
         stage = new Stage(viewport,sb);
-        skin = new Skin();
-
         Gdx.input.setInputProcessor(stage);
+        skin = new Skin();
 
         imageUseTexture = new Texture(Gdx.files.internal("use.bmp"));
         imageAcceptedTexture = new Texture(Gdx.files.internal("accepted.bmp"));

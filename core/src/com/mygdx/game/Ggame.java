@@ -23,6 +23,7 @@ public class Ggame extends Game {
 	public GameCamera cam;
 	public Hud hud;
 	public GameScreen gameScreen;
+	public MenuScreen menuScreen;
 
 
 
@@ -35,12 +36,16 @@ public class Ggame extends Game {
 		cam = new GameCamera(VIRTUAL_WIDTH,VIRTUAL_HEIGHT);
 		hud = new Hud(batch);
 		gameScreen = new GameScreen(this);
+//		menuScreen = new MenuScreen(this);
 		multiplexer=new InputMultiplexer();
-		multiplexer.addProcessor(hud.stage);
+
 		multiplexer.addProcessor(gameScreen.inputControllerGame);
+//		multiplexer.addProcessor(menuScreen.inputController);
+		multiplexer.addProcessor(hud.stage);
+		Gdx.input.setInputProcessor(multiplexer);
 
 		this.setScreen(gameScreen);
-		Gdx.input.setInputProcessor(multiplexer);
+
 	}
 
 	@Override
@@ -62,6 +67,14 @@ public class Ggame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+
+	}
+
+	public void setMultiplexer()
+	{
+
+		multiplexer.addProcessor(hud.stage);
+		multiplexer.addProcessor(gameScreen.inputControllerGame);
 
 	}
 }

@@ -77,6 +77,7 @@ public class Hud {
 //        inputControllerHud = new InputController();
 
         stage = new Stage(viewport,sb);
+//        inputControllerHud= new InputController();
         Gdx.input.setInputProcessor(stage);
         skin = new Skin();
 

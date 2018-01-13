@@ -52,7 +52,7 @@ public class Player {
 
         playerTextureSheet = new Texture("playerSprite.png");
 
-        collisionRect = new CollisionRect(ggame.VIRTUAL_WIDTH/2 - PLAYER_WIDTH_PIXEL, ggame.VIRTUAL_HEIGHT - PLAYER_HEIGHT_PIXEL, PLAYER_WIDTH_PIXEL, PLAYER_HEIGHT_PIXEL);
+        collisionRect = new CollisionRect(ggame.VIRTUAL_WIDTH/2 , ggame.VIRTUAL_HEIGHT/2 - PLAYER_HEIGHT_PIXEL, PLAYER_WIDTH_PIXEL, PLAYER_HEIGHT_PIXEL);
 
         textureRegion = TextureRegion.split(playerTextureSheet,PLAYER_WIDTH_PIXEL,PLAYER_HEIGHT_PIXEL);
         this.world=world;

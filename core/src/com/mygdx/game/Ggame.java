@@ -36,15 +36,15 @@ public class Ggame extends Game {
 		cam = new GameCamera(VIRTUAL_WIDTH,VIRTUAL_HEIGHT);
 		hud = new Hud(batch);
 		gameScreen = new GameScreen(this);
-//		menuScreen = new MenuScreen(this);
+		menuScreen = new MenuScreen(this);
 		multiplexer=new InputMultiplexer();
 
-		multiplexer.addProcessor(gameScreen.inputControllerGame);
+//		multiplexer.addProcessor(gameScreen.inputControllerGame);
 //		multiplexer.addProcessor(menuScreen.inputController);
 		multiplexer.addProcessor(hud.stage);
 		Gdx.input.setInputProcessor(multiplexer);
 
-		this.setScreen(gameScreen);
+		this.setScreen(menuScreen);
 
 	}
 

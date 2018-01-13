@@ -3,11 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.com.mygdx.game.screens.Hud;
 import com.mygdx.game.com.mygdx.game.screens.MenuScreen;
 import tools.GameCamera;
@@ -20,6 +22,11 @@ public class Ggame extends Game {
 	public BitmapFont font;
 	public GameCamera cam;
 	public Hud hud;
+	public GameScreen gameScreen;
+
+
+
+	public InputMultiplexer multiplexer;
 
 
 	@Override
@@ -27,7 +34,13 @@ public class Ggame extends Game {
 		batch = new SpriteBatch();
 		cam = new GameCamera(VIRTUAL_WIDTH,VIRTUAL_HEIGHT);
 		hud = new Hud(batch);
-		this.setScreen(new MenuScreen(this));
+		gameScreen = new GameScreen(this);
+		multiplexer=new InputMultiplexer();
+		multiplexer.addProcessor(hud.stage);
+		multiplexer.addProcessor(gameScreen.inputControllerGame);
+
+		this.setScreen(gameScreen);
+		Gdx.input.setInputProcessor(multiplexer);
 	}
 
 	@Override
@@ -41,6 +54,8 @@ public class Ggame extends Game {
 	public void render () {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined());
+		batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
 		super.render();
 	}
 	

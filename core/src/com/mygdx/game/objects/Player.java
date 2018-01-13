@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Ggame;
 import tools.CollisionRect;
@@ -103,21 +104,21 @@ public class Player {
 
         Vector2 direction = new Vector2(collisionRect.getX() - destinationX, collisionRect.getY() - destinationY);
         direction.nor();
+        Vector2 camInput = new Vector2( ggame.cam.getInputInGameWorld().x,ggame.cam.getInputInGameWorld().y);
         //this.sprite.setPosition(collisionRect.getX() - direction.x,collisionRect.getY()-direction.y);
-        if (destinationX >= collisionRect.getX() && destinationX - collisionRect.getX() > 1) {
-            actualAnimation = 3;
+        if(destinationY>15) {
+            if (destinationX >= collisionRect.getX() && destinationX - collisionRect.getX() > 1) {
+                actualAnimation = 3;
+            } else if (destinationX < collisionRect.getX() && collisionRect.getX() - destinationX > 1) {
+                actualAnimation = 2;
+            } else {
+                actualAnimation = 0;
+            }
+//        System.out.println("x < dir");
+
+
+            collisionRect.move(collisionRect.getX() - direction.x, collisionRect.getY() - direction.y);
         }
-        else if (destinationX < collisionRect.getX() && collisionRect.getX() - destinationX > 1) {
-            actualAnimation = 2;
-        }else{
-            actualAnimation=0;
-        }
-        System.out.println("x < dir");
-
-
-
-        collisionRect.move(collisionRect.getX()-direction.x,collisionRect.getY()-direction.y);
-
 //        System.out.println("destinationX =" +destinationX + "destinationY =" +destinationY + " ActualX =" +collisionRect.getX() + "ActualY =" +collisionRect.getY());
         
     }

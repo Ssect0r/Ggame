@@ -46,7 +46,7 @@ public class MenuScreen implements Screen {
                 if(ggame.cam.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH && ggame.cam.getInputInGameWorld().x >x && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT  && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y > PLAY_BUTTON_Y )
                 {
                     menuScreen.dispose();
-                    ggame.setScreen(new GameScreen(ggame));
+                    ggame.setScreen(ggame.gameScreen);
                 }
                 return super.touchDown(screenX, screenY, pointer, button);
             }

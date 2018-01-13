@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Ggame;
 import com.mygdx.game.objects.Player;
+import tools.InputController;
 
 import static com.mygdx.game.objects.Player.PLAYER_HEIGHT;
 import static com.mygdx.game.objects.Player.PLAYER_WIDTH;
@@ -24,6 +25,7 @@ public class GameScreen implements Screen {
     World world;
     Vector2 destination;
     float stateTime;
+    public InputController inputControllerGame;
 
 
 
@@ -33,17 +35,22 @@ public class GameScreen implements Screen {
         backgroud = new Texture(Gdx.files.internal("GAME_ROOM_2.png"));
         world= new World(new Vector2(0,0),true);
         player = new Player(ggame, world);
+//        ggame.hud.stage.draw();
+        inputControllerGame = new InputController();
+        Gdx.input.setInputProcessor(inputControllerGame);
 
     }
 
     public void update(float delta)
     {
+
         if(Gdx.input.isTouched())
         {
             destination=new Vector2(ggame.cam.getInputInGameWorld().x - PLAYER_WIDTH/2, ggame.VIRTUAL_HEIGHT -1 -ggame.cam.getInputInGameWorld().y - PLAYER_HEIGHT/2);
             //destination=new Vector2(Gdx.input.getX() - player.getWidth()/2, ggame.VIRTUAL_HEIGHT - 1 - Gdx.input.getY() - player.getHeight()/2);
             player.setDestination(destination.x,destination.y);
-            System.out.println(Gdx.input.getX() + " = X" + Gdx.input.getY() + "= Y");
+//            System.out.println(Gdx.input.getX() + " = X" + Gdx.input.getY() + "= Y");
+//            ggame.hud.update();
         }
         player.movePlayer(delta);
     }
@@ -60,6 +67,7 @@ public class GameScreen implements Screen {
         //ggame.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         //ggame.cam.update();
         stateTime+=delta;
+
         ggame.batch.begin();
 
         ggame.batch.draw(backgroud,0,0);
@@ -69,12 +77,15 @@ public class GameScreen implements Screen {
 
       //  player.draw(ggame.batch);
         ggame.batch.end();
+        ggame.hud.stage.act(delta);
         ggame.hud.stage.draw();
+
+       // ggame.hud.stage.act(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        ggame.hud.update(width,height);
     }
 
     @Override

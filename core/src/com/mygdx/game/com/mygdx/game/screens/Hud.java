@@ -27,7 +27,7 @@ import tools.MyImageButton;
 
 public class Hud {
 
-    boolean pressed = false;
+    int actionId;
 
     private Viewport viewport;
     private Ggame ggame;
@@ -44,7 +44,11 @@ public class Hud {
     private Label useButton;
     private Label lookButton;
     private Label walkButton;
-
+    private Label talkingLabel;
+    private Label item1;
+    private Label item2;
+    private Label item3;
+    private Label item4;
 
     public InputController inputControllerHud;
 
@@ -52,6 +56,7 @@ public class Hud {
 
 
 //    TextButton textButton;
+
     public MyImageButton imageUseButton;
     public MyImageButton imageWalkButton;
     public MyImageButton imageLookButton;
@@ -100,11 +105,13 @@ public class Hud {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                pressed=true;
+                unpress();
+                setActionId(3);
 
                 useLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
-                lookLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
-                walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
+
+
+
                 System.out.println(imageUseButton.getHeight());
 
 
@@ -116,11 +123,25 @@ public class Hud {
         imageLookButton.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                unpress();
+                lookLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
+                imageLookButton.setChecked(true);
+                setActionId(1);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
         imageWalkButton = new MyImageButton(imageWalk,accepted,accepted);
+        imageWalkButton.addListener(new InputListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                unpress();
+                walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
+                imageWalkButton.setChecked(true);
+               setActionId(2);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
 
 
 
@@ -140,23 +161,42 @@ public class Hud {
 
 
         table.bottom();
-        table.left();
+        table.right();
         table.setFillParent(true);
         table.setSkin(skin);
 
+        talkingLabel = new Label(" ", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+//        talkingLabel.setWrap(true);
+//        talkingLabel.pack();
         useLabel = new Label(" USE",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lookLabel = new Label(" LOOK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         walkLabel = new Label(" WALK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        item1 = new Label("Item1", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        item2 = new Label("Item2", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        item3 = new Label("Item3", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        item4 = new Label("Item4", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
-        table.add(lookLabel).left().padBottom(10);
-        table.add(walkLabel).left().padBottom(10);
-        table.add(useLabel).left().padBottom(10);
+table.row();
+        table.add(talkingLabel).padBottom(20).expandX();
+        table.row();
+
+
+        table.add(lookLabel).padBottom(10).padTop(10).right();
+        table.add(walkLabel).padBottom(10).padTop(10).right();
+        table.add(useLabel).padBottom(10).padTop(10).right();
+
 
         table.row();
 
-        table.add(imageLookButton).size(64).left();
-        table.add(imageWalkButton).size(64).left();
-        table.add(imageUseButton).size(64).left();
+        table.add(imageLookButton).size(50).right();
+        table.add(imageWalkButton).size(50).right();
+        table.add(imageUseButton).size(50).right();
+        table.add(item1).size(50).right();
+        table.add(item2).size(50).right();
+        table.add(item3).size(50).right();
+        table.add(item4).size(50).right();
+
+
 
         table.row();
 
@@ -167,6 +207,14 @@ public class Hud {
 
     }
 
+    public int getActionId() {
+        return actionId;
+    }
+
+    public void setActionId(int actionId) {
+        this.actionId = actionId;
+    }
+
     public void update(int width, int height)
     {
 
@@ -174,7 +222,15 @@ public class Hud {
 
     }
 
-
+    public void unpress()
+    {
+        imageWalkButton.setChecked(false);
+        imageLookButton.setChecked(false);
+        imageUseButton.setChecked(false);
+        useLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        lookLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+    }
 
 //    public Vector2 getInput()
 //    {
@@ -183,4 +239,16 @@ public class Hud {
 //        return new Vector2(unprojected.x,unprojected.y);
 //    }
 
+
+    public Label getTalkingLabel() {
+        return talkingLabel;
+    }
+
+    public void setTalkingLabel(Label talkingLabel) {
+        this.talkingLabel = talkingLabel;
+    }
+
+    public Table getTable() {
+        return table;
+    }
 }

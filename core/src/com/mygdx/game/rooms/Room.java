@@ -3,6 +3,7 @@ package com.mygdx.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.objects.AbstractGameObject;
 import com.mygdx.game.objects.GameObject;
 
 

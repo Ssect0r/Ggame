@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Ggame;
 import com.mygdx.game.objects.DeskRoom1;
 import com.mygdx.game.objects.Player;
+import com.mygdx.game.rooms.AbstractRoom;
 import com.mygdx.game.rooms.Room;
 import com.mygdx.game.rooms.Room1;
 import com.mygdx.game.rooms.Room2;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
     Ggame ggame;
     Texture backgroud;
 //    Hud hud;
-    public static Player player;
+    public Player player;
     World world;
     Vector2 destination;
     float stateTime;
@@ -82,13 +83,17 @@ public class GameScreen implements Screen {
         }
         else
         {
-            if(actualRoom!=null && Gdx.input.isTouched()) {
-                room1.getDeskRoom1().setActionOnMe(ggame);
-                room1.getDoorsRoom1().setActionOnMe(ggame);
-                room1.getKeysRoom1().setActionOnMe(ggame);
+            if(actualRoom==rooms.get(0) && Gdx.input.isTouched() ) {
+//                room1.getDeskRoom1().setActionOnMe(ggame);
+               // room1.getDoorsRoom1().setActionOnMe(ggame);
+//                room1.getKeysRoom1().setActionOnMe(ggame);
                 actualRoom.getItems(0).setActionOnMe(ggame);
                 actualRoom.getItems(1).setActionOnMe(ggame);
-                //actualRoom.getItems(2).setActionOnMe(ggame);
+            //    actualRoom.getItems(2).setActionOnMe(ggame);
+            }
+            else if(actualRoom==rooms.get(1))
+            {
+
             }
         }
 
@@ -111,14 +116,34 @@ public class GameScreen implements Screen {
         ggame.hud.stage.act(delta);
 
         ggame.batch.begin();
-        ggame.batch.draw(room1.textureRoom(),0,0);
+
         update(delta);
-        ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime,true),player.getCollisionRect().getX(),player.getCollisionRect().getY(),PLAYER_WIDTH,PLAYER_HEIGHT);
-        ggame.batch.draw(room1.getDeskRoom1().getSprite().getTexture(),room1.getDeskRoom1().getX(),room1.getDeskRoom1().getY(),room1.getDeskRoom1().getSprite().getWidth(),room1.getDeskRoom1().getSprite().getHeight());
-        ggame.batch.draw(room1.getDoorsRoom1().getSprite().getTexture(),room1.getDoorsRoom1().getX(),room1.getDoorsRoom1().getY(),room1.getDoorsRoom1().getSprite().getWidth(), room1.getDoorsRoom1().getSprite().getHeight());
+
+
+        if(actualRoom==rooms.get(0)) {
+            ggame.batch.draw(actualRoom.textureRoom(), 0, 0);
+            ggame.batch.draw(actualRoom.getItems(0).getSprite().getTexture(), actualRoom.getItems(0).objectX(), actualRoom.getItems(0).objectY(), actualRoom.getItems(0).getSprite().getWidth(), actualRoom.getItems(0).getSprite().getHeight());
+            ggame.batch.draw(actualRoom.getItems(1).getSprite().getTexture(), actualRoom.getItems(1).objectX(), actualRoom.getItems(1).objectY(), actualRoom.getItems(1).getSprite().getWidth(), actualRoom.getItems(1).getSprite().getHeight());
+            ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+
+            // ggame.batch.draw(actualRoom.getItems(2).getSprite().getTexture(), actualRoom.getItems(2).objectX(), actualRoom.getItems(2).objectY(), actualRoom.getItems(2).getSprite().getWidth(), actualRoom.getItems(2).getSprite().getHeight());
+        }
+        if(actualRoom==rooms.get(1))
+        {
+            ggame.batch.draw(actualRoom.textureRoom(), 0, 0);
+            ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+
+        }
+           // ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+//        if(actualRoom==rooms.get(0))
+//        {
+//            ggame.batch.draw(actualRoom.textureRoom(),0,0);
+//        }
+// ggame.batch.draw(room1.getDoorsRoom1().getSprite().getTexture(),room1.getDoorsRoom1().getX(),room1.getDoorsRoom1().getY(),room1.getDoorsRoom1().getSprite().getWidth(), room1.getDoorsRoom1().getSprite().getHeight());
       //  ggame.batch.draw(room1.getKeysRoom1().getSprite().getTexture(),room1.getKeysRoom1().getX(),room1.getKeysRoom1().getY(),room1.getKeysRoom1().getSprite().getWidth(), room1.getKeysRoom1().getSprite().getHeight());
         //ggame.batch.draw(deskRoom1.getSprite().getTexture(),deskRoom1.getX(),deskRoom1.getY(),deskRoom1.getSprite().getWidth(),deskRoom1.getSprite().getHeight());
       //  player.draw(ggame.batch);
+//        ggame.batch.draw(actualRoom.getItems(0).getSprite(),);
         ggame.batch.end();
         ggame.hud.stage.draw();
 
@@ -152,12 +177,12 @@ public class GameScreen implements Screen {
 
     }
 
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public static void setPlayer(Player player) {
-        GameScreen.player = player;
+    public void setPlayer(Player player) {
+        player = player;
     }
 
     public Rectangle getFloor()
@@ -181,4 +206,11 @@ public class GameScreen implements Screen {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
+
+    public void setRoomTo1()
+    {
+        actualRoom=rooms.get(1);
+    }
+
+
 }

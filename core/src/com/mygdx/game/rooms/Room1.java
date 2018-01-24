@@ -13,7 +13,7 @@ import com.mygdx.game.objects.KeysRoom1;
 
 import java.util.ArrayList;
 
-public class Room1  {
+public class Room1 implements Room {
 
 
     Texture background;
@@ -74,5 +74,53 @@ public class Room1  {
 
     public KeysRoom1 getKeysRoom1() {
         return keysRoom1;
+    }
+
+    @Override
+    public void renderRoom() {
+
+    }
+
+    @Override
+    public void changesInRoom() {
+
+    }
+
+    @Override
+    public Rectangle createFloor() {
+        return floorRectangle;
+    }
+
+    @Override
+    public Texture textureRoom() {
+        return background;
+    }
+
+    @Override
+    public GameObject getItems(int index) {
+        return gameObjects[index];
+    }
+
+    @Override
+    public Sprite getSprite() {
+        return gameObjects[0].getSprite();
+    }
+
+    @Override
+    public float roomX() {
+        return 0;
+    }
+
+    @Override
+    public float roomY() {
+        return 0;
+    }
+
+    public Rectangle getFloor() {
+        return floorRectangle;
+    }
+
+    public void setFloorRectangle(Rectangle floorRectangle) {
+        this.floorRectangle = floorRectangle;
     }
 }

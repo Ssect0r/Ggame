@@ -33,7 +33,7 @@ public class DeskRoom1 implements GameObject   {
 
 
         this.sprite =new Sprite(new Texture(Gdx.files.internal("accepted.bmp")));
-        collisionRect = new CollisionRect(this.getX(),this.getY(),(int)sprite.getWidth(),(int)sprite.getHeight());
+        collisionRect = new CollisionRect(this.objectX(),this.objectY(),(int)sprite.getWidth(),(int)sprite.getHeight());
         abstractGameObject = new AbstractGameObject(this,sprite,x,y,true,false,false,false);
 
 
@@ -93,20 +93,20 @@ public class DeskRoom1 implements GameObject   {
     }
 
 
+    public AbstractGameObject getAbstractGameObject() {
+        return abstractGameObject;
+    }
 
-
-
-
-
-    public float getX() {
+    @Override
+    public float objectX() {
         return x;
     }
 
     public void setX(float x) {
         this.x = x;
     }
-
-    public float getY() {
+    @Override
+    public float objectY() {
         return y;
     }
 

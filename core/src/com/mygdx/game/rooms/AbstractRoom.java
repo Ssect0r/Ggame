@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Ggame;
+import com.mygdx.game.objects.AbstractGameObject;
 import com.mygdx.game.objects.GameObject;
 
 public class AbstractRoom implements Room {
 
     float x,y;
     Ggame ggame;
-
+    Sprite sprite;
     Texture background;
     Rectangle backgroundRectangle;
     Rectangle floorRectangle;
@@ -23,6 +24,8 @@ public class AbstractRoom implements Room {
 
 
     }
+
+
 
     @Override
     public void renderRoom() {
@@ -45,13 +48,13 @@ public class AbstractRoom implements Room {
     }
 
     @Override
-    public GameObject getItems(int index) {
+    public AbstractGameObject getItems(int index) {
         return null;
     }
 
     @Override
     public Sprite getSprite() {
-        return null;
+        return sprite;
     }
 
     @Override

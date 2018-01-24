@@ -81,4 +81,14 @@ abstractGameObject.setActionOnMe(ggame);
     public float getY() {
         return y;
     }
+
+    @Override
+    public float objectX() {
+        return x;
+    }
+
+    @Override
+    public float objectY() {
+        return y;
+    }
 }

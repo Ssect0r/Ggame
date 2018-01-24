@@ -67,6 +67,17 @@ System.out.println("Can't use it");
 
     }
 
+
+    @Override
+    public float objectX() {
+        return x;
+    }
+
+    @Override
+    public float objectY() {
+        return y;
+    }
+
     @Override
     public void avoidMe() {
 
@@ -154,4 +165,6 @@ System.out.println("Can't use it");
     public void setPicked(boolean picked) {
         isPicked = picked;
     }
+
+
 }

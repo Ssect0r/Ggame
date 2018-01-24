@@ -13,5 +13,8 @@ public interface GameObject{
  public void avoidMe();
  public void blockPlayer();
  public void resetText();
+ public Sprite getSprite();
+ public float objectX();
+ public float objectY();
 
 }

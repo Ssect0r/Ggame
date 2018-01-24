@@ -40,6 +40,16 @@ public class DoorsRoom1 implements GameObject {
     }
 
     @Override
+    public float objectX() {
+        return x;
+    }
+
+    @Override
+    public float objectY() {
+        return y;
+    }
+
+    @Override
     public void resetText() {
 
     }
@@ -51,8 +61,10 @@ public class DoorsRoom1 implements GameObject {
 
     @Override
     public void useMe() {
-
-        ggame.gameScreen.setActualRoom(ggame.gameScreen.getRooms().get(1));
+        if(ggame.hud.getActionId()==3) {
+            ggame.gameScreen.setRoomTo1();
+            ggame.gameScreen.getPlayer().getCollisionRect().setX(15);
+        }
     }
 
     @Override

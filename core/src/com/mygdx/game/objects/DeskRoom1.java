@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Ggame;
 import tools.CollisionRect;
+import tools.MyImageButton;
 
 public class DeskRoom1 implements GameObject   {
 
     float x,y;
     Sprite sprite;
     CollisionRect collisionRect;
-
+    String name;
     //InputAdapter inputAdapter;
 
 
@@ -21,21 +22,14 @@ public class DeskRoom1 implements GameObject   {
     AbstractGameObject abstractGameObject;
 
     public DeskRoom1(Ggame ggame,float x, float y) {
-//        super(x, y,isUsable, doesNeedsDifferentItem, isPickable);
-//        inputAdapter = new InputAdapter();
+
         this.ggame= ggame;
-//        this.isUsable = isUsable;
-//        this.doesNeedsDifferentItem = doesNeedsDifferentItem;
-//        this.isPickable = isPickable;
         this.x = x;
         this.y = y;
-
-
-
-        this.sprite =new Sprite(new Texture(Gdx.files.internal("accepted.bmp")));
-        collisionRect = new CollisionRect(this.objectX(),this.objectY(),(int)sprite.getWidth(),(int)sprite.getHeight());
+        this.sprite =new Sprite(new Texture(Gdx.files.internal("Desk.png")));
+        collisionRect = new CollisionRect(this.objectX(),this.objectY(),(int)sprite.getWidth(),(int)sprite.getHeight()-60);
         abstractGameObject = new AbstractGameObject(this,sprite,x,y,true,false,false,false);
-
+        name = "DeskRoom1";
 
 
         //collisionRect = new CollisionRect(x,y,(int)sprite.getWidth(),(int)sprite.getHeight());
@@ -51,6 +45,19 @@ public class DeskRoom1 implements GameObject   {
     @Override
     public void avoidMe() {
 
+        if(this.getCollistionRectObj().collidesWith(ggame.gameScreen.getPlayer().getCollisionRect()))
+        {
+            ggame.hud.getTalkingLabel().setText("Uwazaj !");
+            if(this.getCollistionRectObj().collidesWithOnHeight(ggame.gameScreen.getPlayer().getCollisionRect())){
+                ggame.gameScreen.getPlayer().setDestination(this.getCollistionRectObj().getX() + this.getCollistionRectObj().getWidth(), this.getCollistionRectObj().getY() );
+            }
+            if(this.getCollistionRectObj().collidesWithOnWidth(ggame.gameScreen.getPlayer().getCollisionRect()))
+            {
+                ggame.gameScreen.getPlayer().setDestination(ggame.gameScreen.getPlayer().getCollisionRect().getX() , this.getCollistionRectObj().getY() + this.getCollistionRectObj().getHeight());
+            }
+
+
+        }
     }
 
     @Override
@@ -64,6 +71,12 @@ public class DeskRoom1 implements GameObject   {
 
 
     }
+
+    @Override
+    public CollisionRect getCollistionRectObj() {
+        return collisionRect;
+    }
+
 
     @Override
     public void useMe() {
@@ -80,6 +93,11 @@ public class DeskRoom1 implements GameObject   {
                 abstractGameObject.useMe();
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -130,7 +148,9 @@ public class DeskRoom1 implements GameObject   {
         this.collisionRect = collisionRect;
     }
 
-//    public boolean isUsable() {
+
+
+    //    public boolean isUsable() {
 //        return isUsable;
 //    }
 //

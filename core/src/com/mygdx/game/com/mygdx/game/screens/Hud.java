@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Ggame;
 
+import com.mygdx.game.objects.GameObject;
 import tools.ImageButtonStyle;
 import tools.InputController;
 import tools.MyImageButton;
@@ -45,17 +46,20 @@ public class Hud {
     private Label lookButton;
     private Label walkButton;
     private Label talkingLabel;
-    private Label item1;
-    private Label item2;
-    private Label item3;
-    private Label item4;
+//    private Label item1;
+//    private Label item2;
+//    private Label item3;
+//    private Label item4;
 
     public InputController inputControllerHud;
 
     private SpriteBatch sb;
 
 
-//    TextButton textButton;
+    TextButton itemNo1;
+    TextButton itemNo2;
+    TextButton itemNo3;
+    TextButton itemNo4;
 
     public MyImageButton imageUseButton;
     public MyImageButton imageWalkButton;
@@ -71,6 +75,18 @@ public class Hud {
 
     Texture imageWalkTexture;
     Texture imageLookTexture;
+
+
+    private String actualAction;
+    private boolean itemChoosed;
+
+
+
+    BitmapFont font;
+    TextButtonStyle textButtonStyle;
+    TextButtonStyle textButtonStyle2;
+    TextButtonStyle textButtonStyle3;
+    TextButtonStyle textButtonStyle4;
 
     public Hud(SpriteBatch sb)
     {
@@ -96,6 +112,21 @@ public class Hud {
         imageWalk = new TextureRegionDrawable(new TextureRegion(imageWalkTexture));
         imageLook = new TextureRegionDrawable(new TextureRegion(imageLookTexture));
 
+        font = new BitmapFont();
+
+        textButtonStyle = new TextButtonStyle();
+        textButtonStyle.font = font;
+
+        textButtonStyle2= new TextButtonStyle();
+        textButtonStyle2.font = font;
+
+        textButtonStyle3= new TextButtonStyle();
+        textButtonStyle3.font = font;
+
+        textButtonStyle4= new TextButtonStyle();
+        textButtonStyle4.font = font;
+
+        itemChoosed=false;
 
         // LISTENERY BUTTONOW *****************************************************************************
 
@@ -139,6 +170,7 @@ public class Hud {
                 walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
                 imageWalkButton.setChecked(true);
                setActionId(2);
+               System.out.println("Hud id 2");
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -171,10 +203,14 @@ public class Hud {
         useLabel = new Label(" USE",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lookLabel = new Label(" LOOK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         walkLabel = new Label(" WALK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        item1 = new Label("Item1", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        item2 = new Label("Item2", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        item3 = new Label("Item3", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        item4 = new Label("Item4", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+//        item1 = new Label("Item1", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+//        item2 = new Label("Item2", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+//        item3 = new Label("Item3", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+//        item4 = new Label("Item4", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        itemNo1 = new TextButton("Empty",textButtonStyle);
+        itemNo2 = new TextButton("Empty",textButtonStyle2);
+        itemNo3 = new TextButton("Empty",textButtonStyle3);
+        itemNo4 = new TextButton("Empty",textButtonStyle4);
 
 table.row();
         table.add(talkingLabel).padBottom(20).expandX();
@@ -191,10 +227,14 @@ table.row();
         table.add(imageLookButton).size(50).right();
         table.add(imageWalkButton).size(50).right();
         table.add(imageUseButton).size(50).right();
-        table.add(item1).size(50).right();
-        table.add(item2).size(50).right();
-        table.add(item3).size(50).right();
-        table.add(item4).size(50).right();
+        table.add(itemNo1).size(50).right();
+        table.add(itemNo2).size(50).right();
+        table.add(itemNo3).size(50).right();
+        table.add(itemNo4).size(50).right();
+
+//        table.add(item2).size(50).right();
+//        table.add(item3).size(50).right();
+//        table.add(item4).size(50).right();
 
 
 
@@ -250,5 +290,102 @@ table.row();
 
     public Table getTable() {
         return table;
+    }
+
+    public TextButtonStyle getTextButtonStyle() {
+        return textButtonStyle;
+    }
+
+    public void setTextButtonStyle(TextButtonStyle textButtonStyle) {
+        this.textButtonStyle = textButtonStyle;
+    }
+
+    public void getItemOnHud(GameObject gameObject)
+    {
+
+        itemNo1.setText(gameObject.getName());
+        final String string = gameObject.getName();
+        itemNo1.addListener(new InputListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+
+
+                itemNo1.getStyle().fontColor = Color.RED;
+                setActualAction(string);
+                setItemChoosed(true);
+
+                System.out.println(getActualAction());
+                System.out.println(isItemChoosed());
+
+//                gameObject.useMe();
+
+                return super.touchDown(event, x, y, pointer, button);
+
+
+            }
+        });
+
+    }
+
+
+    public void removeItemFromHud()
+    {
+       setItemChoosed(false);
+       setActualAction("noAction");
+        getItemNo1().setText("Empty");
+        itemNo1.clearListeners();
+        itemNo1.getStyle().fontColor = Color.WHITE;
+    }
+
+    public String getActualAction() {
+        return actualAction;
+    }
+
+    public void setActualAction(String actualAction) {
+        this.actualAction = actualAction;
+    }
+
+    public boolean isItemChoosed() {
+        return itemChoosed;
+    }
+
+    public void setItemChoosed(boolean itemChoosed) {
+        this.itemChoosed = itemChoosed;
+    }
+
+
+
+    public TextButton getItemNo1() {
+        return itemNo1;
+    }
+
+    public void setItemNo1(TextButton itemNo1) {
+        this.itemNo1 = itemNo1;
+    }
+
+    public TextButton getItemNo2() {
+        return itemNo2;
+    }
+
+    public void setItemNo2(TextButton itemNo2) {
+        this.itemNo2 = itemNo2;
+    }
+
+    public TextButton getItemNo3() {
+        return itemNo3;
+    }
+
+    public void setItemNo3(TextButton itemNo3) {
+        this.itemNo3 = itemNo3;
+    }
+
+    public TextButton getItemNo4() {
+        return itemNo4;
+    }
+
+    public void setItemNo4(TextButton itemNo4) {
+        this.itemNo4 = itemNo4;
     }
 }

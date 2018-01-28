@@ -4,8 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.mygdx.game.Ggame;
 import tools.CollisionRect;
+import tools.MyImageButton;
+
+import java.awt.*;
+
+import static com.badlogic.gdx.graphics.Color.WHITE;
 
 public class DoorsRoom1 implements GameObject {
 
@@ -13,6 +19,11 @@ public class DoorsRoom1 implements GameObject {
     boolean doesNeedsDifferentItem;
     boolean isPickable;
 
+
+    boolean isOpened;
+    String name;
+    Texture texture1;
+    Texture texture2;
 
     float x,y;
     Sprite sprite;
@@ -28,15 +39,19 @@ public class DoorsRoom1 implements GameObject {
         this.x=x;
         this.y=y;
         this.isUsable=isUsable;
-
+        name = "doorsRoom1";
         this.isPickable=isPickable;
         this.doesNeedsDifferentItem=doesNeedsDifferentItem;
 
-        //sprite=new Texture();
 
-        this.sprite = new Sprite(new Texture(Gdx.files.internal("Doors_Right.png")));
-        collisionRect = new CollisionRect(ggame.VIRTUAL_WIDTH - sprite.getWidth(), ggame.VIRTUAL_HEIGHT/2-sprite.getHeight(),(int)sprite.getWidth(),(int)sprite.getHeight());
-        abstractGameObject = new AbstractGameObject(this,sprite,x,y,true,false,false,false);
+        this.isOpened=false;
+        //sprite=new Texture();
+        texture1=new Texture(Gdx.files.internal("Doors_right.png"));
+        texture2 = new Texture(Gdx.files.internal("DoorsLeft.png"));
+        this.sprite = new Sprite(texture1);
+        collisionRect = new CollisionRect(this.objectX(),this.objectY(),(int)sprite.getWidth(),(int)sprite.getHeight());
+        System.out.println(collisionRect.getY());
+        abstractGameObject = new AbstractGameObject(this,sprite,x,y,true,true,false,false);
     }
 
     @Override
@@ -61,14 +76,65 @@ public class DoorsRoom1 implements GameObject {
 
     @Override
     public void useMe() {
-        if(ggame.hud.getActionId()==3) {
-            ggame.gameScreen.setRoomTo1();
-            ggame.gameScreen.getPlayer().getCollisionRect().setX(15);
-        }
+        if(ggame.hud.getActionId()==3 ) {
+            if (abstractGameObject.isUsable() == true) {
+
+                if (this.collisionRect.collidesWith(ggame.gameScreen.getPlayer().getCollisionRect())) {
+
+                    if(isOpened==true){
+                        System.out.println("esle otwarcia");
+                        abstractGameObject.sprite.set(new Sprite(texture2));
+                        ggame.gameScreen.setRoomTo1();
+
+
+                    }
+
+                    if(ggame.gameScreen.getActualRoom()==ggame.gameScreen.getRooms().get(0) && isOpened==false) {
+
+                        if(ggame.hud.isItemChoosed()==true && ggame.hud.getActualAction().equals("keys")) {
+                            System.out.println("if huda");
+                            isOpened = true;
+                            ggame.hud.getTalkingLabel().setText("Udalo mi sie otworzyc drzwi");
+                            ggame.hud.removeItemFromHud();
+//
+//                        ggame.gameScreen.getPlayer().getCollisionRect().setX(15);
+                        }
+
+                        else{
+                            System.out.println("else");
+                            ggame.hud.getTalkingLabel().setText("Zamkniete");
+                        }
+
+                    }
+
+
+                    if(ggame.gameScreen.getActualRoom()==ggame.gameScreen.getRooms().get(1) && ggame.gameScreen.getRooms().get(1).getItems(0).getCollistionRectObj().collidesWith(ggame.gameScreen.getPlayer().getCollisionRect())  )
+                    {
+                        System.out.println("lelelelelle");
+
+                        abstractGameObject.sprite.flip(true,false);
+                        sprite.flip(true,true);
+                        ggame.gameScreen.setRoomTo0();
+                    }
+                } else {
+                    ggame.hud.getTalkingLabel().setText("Jestem zbyt daleko!");
+                }
+            } else {
+                abstractGameObject.useMe();
+            }
+
+            }
+   }
+
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
     public void useItemOnMe() {
+
 
     }
 
@@ -77,6 +143,11 @@ public class DoorsRoom1 implements GameObject {
      abstractGameObject.setActionOnMe(ggame);
     }
 
+
+    @Override
+    public CollisionRect getCollistionRectObj() {
+        return collisionRect;
+    }
 
     @Override
     public void avoidMe() {
@@ -111,4 +182,7 @@ public class DoorsRoom1 implements GameObject {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+    // ********************************************************************************************* // *********************************************************************************************
+
+
 }

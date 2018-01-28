@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.objects.AbstractGameObject;
 import com.mygdx.game.objects.GameObject;
-
+import tools.MyImageButton;
 
 
 public interface Room {
@@ -18,6 +18,7 @@ public interface Room {
     public Texture textureRoom();
     public GameObject getItems(int index);
     public Sprite getSprite();
+
     public float roomX();
     public float roomY();
 

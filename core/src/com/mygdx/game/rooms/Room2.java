@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Ggame;
+import com.mygdx.game.objects.DoorsRoom1;
 import com.mygdx.game.objects.GameObject;
+import tools.MyImageButton;
 
 public class Room2 implements Room {
 
@@ -16,12 +18,18 @@ public class Room2 implements Room {
 
     Ggame ggame;
 
+    DoorsRoom1 doorsRoom1;
+    GameObject[] gameObjects;
 
     public Room2(Ggame ggame)
     {
-        floorRectangle = new Rectangle(30,64,ggame.VIRTUAL_WIDTH,ggame.VIRTUAL_HEIGHT-128);
+        floorRectangle = new Rectangle(30,10,ggame.VIRTUAL_WIDTH,ggame.VIRTUAL_HEIGHT-125);
         this.ggame=ggame;
-        background = new Texture(Gdx.files.internal("Room2.png"));
+        background = new Texture(Gdx.files.internal("room.jpg"));
+        doorsRoom1 = new DoorsRoom1(ggame,30,30);
+        gameObjects = new GameObject[3];
+
+        gameObjects[0]= doorsRoom1;
 
     }
 
@@ -48,7 +56,7 @@ public class Room2 implements Room {
 
     @Override
     public GameObject getItems(int index) {
-        return null;
+        return gameObjects[index];
     }
 
     @Override
@@ -65,4 +73,9 @@ public class Room2 implements Room {
     public float roomY() {
         return 0;
     }
+
+
+    // ************************************************************************************
+
+
 }

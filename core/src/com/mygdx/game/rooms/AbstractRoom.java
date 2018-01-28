@@ -6,25 +6,24 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Ggame;
 import com.mygdx.game.objects.AbstractGameObject;
 import com.mygdx.game.objects.GameObject;
+import tools.MyImageButton;
 
 public class AbstractRoom implements Room {
 
-    float x,y;
+    float x, y;
     Ggame ggame;
     Sprite sprite;
     Texture background;
     Rectangle backgroundRectangle;
     Rectangle floorRectangle;
 
-    public AbstractRoom(Ggame ggame, float x, float y)
-    {
-        this.ggame=ggame;
-        this.x=x;
-        this.y=y;
+    public AbstractRoom(Ggame ggame, float x, float y) {
+        this.ggame = ggame;
+        this.x = x;
+        this.y = y;
 
 
     }
-
 
 
     @Override
@@ -67,3 +66,4 @@ public class AbstractRoom implements Room {
         return 0;
     }
 }
+

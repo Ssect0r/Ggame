@@ -9,6 +9,7 @@ import com.mygdx.game.objects.DeskRoom1;
 import com.mygdx.game.objects.DoorsRoom1;
 import com.mygdx.game.objects.GameObject;
 import com.mygdx.game.objects.KeysRoom1;
+import tools.MyImageButton;
 
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Room1 implements Room {
 
     Ggame ggame;
     DeskRoom1 deskRoom1;
+    DeskRoom1 deskRoom2;
     DoorsRoom1 doorsRoom1;
     KeysRoom1 keysRoom1;
 
@@ -29,23 +31,27 @@ public class Room1 implements Room {
 
     public Room1(Ggame ggame)
     {
-        floorRectangle = new Rectangle(30,64,ggame.VIRTUAL_WIDTH,ggame.VIRTUAL_HEIGHT-128);
+        floorRectangle = new Rectangle(35,40,ggame.VIRTUAL_WIDTH,ggame.VIRTUAL_HEIGHT-120);
         this.ggame=ggame;
         background = new Texture(Gdx.files.internal("GAME_ROOM_2.png"));
         //backgroundRectangle = new Rectangle(ggame.VIRTUAL_WIDTH,ggame.VIRTUAL_HEIGHT);
 
-        deskRoom1 = new DeskRoom1(ggame,90,100);
-        doorsRoom1= new DoorsRoom1(ggame,ggame.VIRTUAL_WIDTH-100,ggame.VIRTUAL_HEIGHT/2 - 50);
-        keysRoom1 = new KeysRoom1(ggame,50,100);
-        gameObjects= new GameObject[3];
+        deskRoom1 = new DeskRoom1(ggame,90,80);
+        //deskRoom2 = new DeskRoom1(ggame,200,100);
+        doorsRoom1= new DoorsRoom1(ggame,430,100);
+        keysRoom1 = new KeysRoom1(ggame,50,140);
+
+        gameObjects= new GameObject[4];
 
         gameObjects[0]=deskRoom1;
         gameObjects[1]=doorsRoom1;
         gameObjects[2]=keysRoom1;
 
+
 //        objects[1]= new DeskRoom1(ggame, 200, 150, false, false, false);
 
     }
+
 
 
     public Ggame getGgame() {
@@ -103,7 +109,7 @@ public class Room1 implements Room {
 
     @Override
     public Sprite getSprite() {
-        return gameObjects[0].getSprite();
+        return null;
     }
 
     @Override

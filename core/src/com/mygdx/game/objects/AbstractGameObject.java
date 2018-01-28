@@ -1,7 +1,14 @@
 package com.mygdx.game.objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Ggame;
+import tools.CollisionRect;
+import tools.MyImageButton;
 
 public class AbstractGameObject implements  GameObject {
 
@@ -15,6 +22,11 @@ public class AbstractGameObject implements  GameObject {
     boolean isPickable;
     boolean isPicked;
 
+//    MyImageButton myImageButton;
+//    Texture myImageButtonTexture;
+//    Drawable myImageButtonDrawable;
+
+
 
     public AbstractGameObject(GameObject gameObject,Sprite sprite, float x, float y,boolean isUsable,boolean doesNeedsDifferentItem,boolean isPickable,boolean isPicked)
     {
@@ -26,6 +38,14 @@ public class AbstractGameObject implements  GameObject {
         this.doesNeedsDifferentItem=doesNeedsDifferentItem;
         this.isPickable=isPickable;
         this.isPicked=isPicked;
+//        myImageButtonTexture = new Texture(Gdx.files.internal("play_button_inactive.png"));
+//
+//        myImageButtonDrawable = new TextureRegionDrawable(new TextureRegion(myImageButtonTexture));
+
+//        myImageButton = new MyImageButton(myImageButtonDrawable,myImageButtonDrawable,myImageButtonDrawable);
+//        myImageButton.setSize(60,60);
+//        myImageButton.setVisible(true);
+//        myImageButton.setPosition(x,y);
     }
 
     @Override
@@ -35,7 +55,7 @@ public class AbstractGameObject implements  GameObject {
 
     @Override
     public void useMe() {
-System.out.println("Can't use it");
+System.out.println("Abstract object useMe()");
 
 
     }
@@ -55,7 +75,7 @@ System.out.println("Can't use it");
                 case 1:
                     gameObject.lookAtMe();
                 case 2:
-                    //colision
+                    this.gameObject.avoidMe();
 
                 case 3:
                     gameObject.useMe();
@@ -66,7 +86,10 @@ System.out.println("Can't use it");
         }
 
     }
-
+    @Override
+    public CollisionRect getCollistionRectObj() {
+        return null;
+    }
 
     @Override
     public float objectX() {
@@ -81,6 +104,7 @@ System.out.println("Can't use it");
     @Override
     public void avoidMe() {
 
+
     }
 
     @Override
@@ -93,13 +117,17 @@ System.out.println("Can't use it");
 
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
+    public void setSprite() {
+        sprite=new Sprite(new Texture(Gdx.files.internal("empty.bmp")));
     }
 
     public float getX() {
@@ -167,4 +195,16 @@ System.out.println("Can't use it");
     }
 
 
+//    public MyImageButton getMyImageButton() {
+//        return myImageButton;
+//    }
+//
+//    public void setMyImageButton(MyImageButton myImageButton) {
+//        this.myImageButton = myImageButton;
+//    }
+//    // *********************************************************************************************
+//    @Override
+//    public MyImageButton getImButt() {
+//        return this.myImageButton;
+//    }
 }

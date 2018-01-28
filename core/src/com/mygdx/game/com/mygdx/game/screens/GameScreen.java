@@ -67,10 +67,14 @@ public class GameScreen implements Screen {
     public void update(float delta) {
 
         if (ggame.hud.getActionId() == 2) {
-
+            if(player.getCollisionRect().collidesWith(actualRoom.getItems(0).getCollistionRectObj()))
+            {
+                actualRoom.getItems(0).avoidMe();
+            }
             if (Gdx.input.isTouched()) {
-                System.out.println("here");
+
                 if ( getFloor().height> ggame.cam.getInputInGameWorld().y && ggame.VIRTUAL_HEIGHT-getFloor().height< ggame.cam.getInputInGameWorld().y && ggame.gameScreen.getFloor().width > ggame.cam.getInputInGameWorld().x) {
+
                     destination = new Vector2(ggame.cam.getInputInGameWorld().x - PLAYER_WIDTH / 2, ggame.VIRTUAL_HEIGHT - 1 - ggame.cam.getInputInGameWorld().y - PLAYER_HEIGHT / 2);
                     //destination=new Vector2(Gdx.input.getX() - player.getWidth()/2, ggame.VIRTUAL_HEIGHT - 1 - Gdx.input.getY() - player.getHeight()/2);
 
@@ -84,16 +88,14 @@ public class GameScreen implements Screen {
         else
         {
             if(actualRoom==rooms.get(0) && Gdx.input.isTouched() ) {
-//                room1.getDeskRoom1().setActionOnMe(ggame);
-               // room1.getDoorsRoom1().setActionOnMe(ggame);
-//                room1.getKeysRoom1().setActionOnMe(ggame);
+                actualRoom.getItems(2).setActionOnMe(ggame);
                 actualRoom.getItems(0).setActionOnMe(ggame);
                 actualRoom.getItems(1).setActionOnMe(ggame);
-            //    actualRoom.getItems(2).setActionOnMe(ggame);
+                actualRoom.getItems(0).avoidMe();
             }
-            else if(actualRoom==rooms.get(1))
+            if(actualRoom==rooms.get(1) && Gdx.input.isTouched())
             {
-
+            actualRoom.getItems(0).setActionOnMe(ggame);
             }
         }
 
@@ -114,42 +116,43 @@ public class GameScreen implements Screen {
         stateTime+=delta;
 
         ggame.hud.stage.act(delta);
-
+        update(delta);
         ggame.batch.begin();
 
         update(delta);
+       //
+//        if(Gdx.input.isTouched())
+//        {
+//            System.out.println("X =" + Gdx.input.getX() + "Y =" + Gdx.input.getY());
+//        }
 
 
         if(actualRoom==rooms.get(0)) {
             ggame.batch.draw(actualRoom.textureRoom(), 0, 0);
-            ggame.batch.draw(actualRoom.getItems(0).getSprite().getTexture(), actualRoom.getItems(0).objectX(), actualRoom.getItems(0).objectY(), actualRoom.getItems(0).getSprite().getWidth(), actualRoom.getItems(0).getSprite().getHeight());
             ggame.batch.draw(actualRoom.getItems(1).getSprite().getTexture(), actualRoom.getItems(1).objectX(), actualRoom.getItems(1).objectY(), actualRoom.getItems(1).getSprite().getWidth(), actualRoom.getItems(1).getSprite().getHeight());
+            ggame.batch.draw(actualRoom.getItems(2).getSprite().getTexture(), actualRoom.getItems(2).objectX(), actualRoom.getItems(2).objectY(), actualRoom.getItems(2).getSprite().getWidth(), actualRoom.getItems(2).getSprite().getHeight());
             ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
-
-            // ggame.batch.draw(actualRoom.getItems(2).getSprite().getTexture(), actualRoom.getItems(2).objectX(), actualRoom.getItems(2).objectY(), actualRoom.getItems(2).getSprite().getWidth(), actualRoom.getItems(2).getSprite().getHeight());
+            ggame.batch.draw(actualRoom.getItems(0).getSprite().getTexture(), actualRoom.getItems(0).objectX(), actualRoom.getItems(0).objectY(), actualRoom.getItems(0).getSprite().getWidth(), actualRoom.getItems(0).getSprite().getHeight());
         }
+        //actualRoom.getItems(0).getImButt().draw(ggame.batch,delta);
+
         if(actualRoom==rooms.get(1))
         {
+
             ggame.batch.draw(actualRoom.textureRoom(), 0, 0);
             ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+            ggame.batch.draw(actualRoom.getItems(0).getSprite().getTexture(), actualRoom.getItems(0).objectX(), actualRoom.getItems(0).objectY(), actualRoom.getItems(0).getSprite().getWidth(), actualRoom.getItems(0).getSprite().getHeight());
 
         }
-           // ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
-//        if(actualRoom==rooms.get(0))
-//        {
-//            ggame.batch.draw(actualRoom.textureRoom(),0,0);
-//        }
-// ggame.batch.draw(room1.getDoorsRoom1().getSprite().getTexture(),room1.getDoorsRoom1().getX(),room1.getDoorsRoom1().getY(),room1.getDoorsRoom1().getSprite().getWidth(), room1.getDoorsRoom1().getSprite().getHeight());
-      //  ggame.batch.draw(room1.getKeysRoom1().getSprite().getTexture(),room1.getKeysRoom1().getX(),room1.getKeysRoom1().getY(),room1.getKeysRoom1().getSprite().getWidth(), room1.getKeysRoom1().getSprite().getHeight());
-        //ggame.batch.draw(deskRoom1.getSprite().getTexture(),deskRoom1.getX(),deskRoom1.getY(),deskRoom1.getSprite().getWidth(),deskRoom1.getSprite().getHeight());
-      //  player.draw(ggame.batch);
-//        ggame.batch.draw(actualRoom.getItems(0).getSprite(),);
+
+
         ggame.batch.end();
+
         ggame.hud.stage.draw();
 
 
 
-       // ggame.hud.stage.act(delta);
+
     }
 
     @Override
@@ -187,7 +190,7 @@ public class GameScreen implements Screen {
 
     public Rectangle getFloor()
     {
-        System.out.println(actualRoom.createFloor().height);
+
         return actualRoom.createFloor();
     }
 
@@ -210,6 +213,16 @@ public class GameScreen implements Screen {
     public void setRoomTo1()
     {
         actualRoom=rooms.get(1);
+        player.getCollisionRect().setX(getRooms().get(1).getItems(0).getCollistionRectObj().getX() +getRooms().get(1).getItems(0).getCollistionRectObj().getWidth() + player.getCollisionRect().getWidth()/2);
+        player.getCollisionRect().setY(getRooms().get(1).getItems(0).getCollistionRectObj().getY() + player.getCollisionRect().getHeight()/2);
+        player.setDestination(player.getCollisionRect().getX(),player.getCollisionRect().getY());
+    }
+
+    public void setRoomTo0()
+    {
+        actualRoom=rooms.get(0);
+        player.getCollisionRect().setX(getRooms().get(0).getItems(1).getCollistionRectObj().getX() -getRooms().get(0).getItems(1).getCollistionRectObj().getWidth() - player.getCollisionRect().getWidth()/2);
+        player.setDestination(player.getCollisionRect().getX(),player.getCollisionRect().getY());
     }
 
 

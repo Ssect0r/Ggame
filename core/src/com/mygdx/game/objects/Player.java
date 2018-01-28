@@ -104,12 +104,23 @@ public class Player {
         //this.sprite.setPosition(collisionRect.getX() - direction.x,collisionRect.getY()-direction.y);
 
 //          if(ggame.gameScreen.getFloor().contains()
-            if (destinationY > 15) {
+//            if (destinationY > 15 && destinationX >15) {
+                if(destinationY>= collisionRect.getY() && destinationX ==collisionRect.getX())
+                {
+                    actualAnimation=4;
+                }
+
+                if(destinationY<collisionRect.getY() && destinationX==collisionRect.getX())
+                {
+                    actualAnimation=1;
+                }
                 if (destinationX >= collisionRect.getX() && destinationX - collisionRect.getX() > 1) {
                     actualAnimation = 3;
-                } else if (destinationX < collisionRect.getX() && collisionRect.getX() - destinationX > 1) {
+                }
+                else if (destinationX < collisionRect.getX() && collisionRect.getX() - destinationX > 1) {
                     actualAnimation = 2;
-                } else {
+                }
+                else if ( collisionRect.getX()-destinationX<1 && destinationY-collisionRect.getY()<1){
                     actualAnimation = 0;
                 }
 //        System.out.println("x < dir");
@@ -118,7 +129,7 @@ public class Player {
                 collisionRect.move(collisionRect.getX() - direction.x, collisionRect.getY() - direction.y);
             }
 //        System.out.println("destinationX =" +destinationX + "destinationY =" +destinationY + " ActualX =" +collisionRect.getX() + "ActualY =" +collisionRect.getY());
-        }
+//        }
 
 
 
@@ -164,7 +175,24 @@ public class Player {
     public void setWidth(float width) {
         this.width = width;
     }
-//
+
+    public float getDestinationX() {
+        return destinationX;
+    }
+
+    public void setDestinationX(float destinationX) {
+        this.destinationX = destinationX;
+    }
+
+    public float getDestinationY() {
+        return destinationY;
+    }
+
+    public void setDestinationY(float destinationY) {
+        this.destinationY = destinationY;
+    }
+
+    //
 //    public Animation getAnimation() {
 //        return animation;
 //    }

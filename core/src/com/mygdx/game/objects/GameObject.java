@@ -3,6 +3,7 @@ package com.mygdx.game.objects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Ggame;
 import tools.CollisionRect;
+import tools.MyImageButton;
 
 public interface GameObject{
 
@@ -16,5 +17,8 @@ public interface GameObject{
  public Sprite getSprite();
  public float objectX();
  public float objectY();
+ public String getName();
+ public CollisionRect getCollistionRectObj();
+
 
 }

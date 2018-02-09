@@ -41,15 +41,9 @@ public class Hud {
     private Label useLabel;
     private Label lookLabel;
     private Label walkLabel;
-    private Image image;
-    private Label useButton;
-    private Label lookButton;
-    private Label walkButton;
+
     private Label talkingLabel;
-//    private Label item1;
-//    private Label item2;
-//    private Label item3;
-//    private Label item4;
+
 
     public InputController inputControllerHud;
 
@@ -156,7 +150,7 @@ public class Hud {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 unpress();
                 lookLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
-                imageLookButton.setChecked(true);
+
                 setActionId(1);
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -168,7 +162,7 @@ public class Hud {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 unpress();
                 walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.RED));
-                imageWalkButton.setChecked(true);
+
                setActionId(2);
                System.out.println("Hud id 2");
                 return super.touchDown(event, x, y, pointer, button);
@@ -198,15 +192,11 @@ public class Hud {
         table.setSkin(skin);
 
         talkingLabel = new Label(" ", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//        talkingLabel.setWrap(true);
-//        talkingLabel.pack();
+
         useLabel = new Label(" USE",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lookLabel = new Label(" LOOK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         walkLabel = new Label(" WALK",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-//        item1 = new Label("Item1", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//        item2 = new Label("Item2", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//        item3 = new Label("Item3", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-//        item4 = new Label("Item4", new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+
         itemNo1 = new TextButton("Empty",textButtonStyle);
         itemNo2 = new TextButton("Empty",textButtonStyle2);
         itemNo3 = new TextButton("Empty",textButtonStyle3);
@@ -231,11 +221,6 @@ table.row();
         table.add(itemNo2).size(50).right();
         table.add(itemNo3).size(50).right();
         table.add(itemNo4).size(50).right();
-
-//        table.add(item2).size(50).right();
-//        table.add(item3).size(50).right();
-//        table.add(item4).size(50).right();
-
 
 
         table.row();
@@ -272,12 +257,6 @@ table.row();
         walkLabel.setStyle(new Label.LabelStyle(new BitmapFont(),Color.WHITE));
     }
 
-//    public Vector2 getInput()
-//    {
-//        Vector3 inputScreen = new Vector3(Gdx.input.getX(),Gdx.graphics.getHeight()-Gdx.input.getY(),0);
-//        Vector3 unprojected = stage.getCamera().unproject(inputScreen);
-//        return new Vector2(unprojected.x,unprojected.y);
-//    }
 
 
     public Label getTalkingLabel() {
@@ -309,25 +288,11 @@ table.row();
         {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-
-
                 itemNo1.getStyle().fontColor = Color.RED;
                 setActualAction(string);
                 setItemChoosed(true);
-
-                System.out.println(getActualAction());
-                System.out.println(isItemChoosed());
-
-//                gameObject.useMe();
-
                 return super.touchDown(event, x, y, pointer, button);
-
-
-            }
-        });
-
-    }
+                }}); }
 
 
     public void removeItemFromHud()

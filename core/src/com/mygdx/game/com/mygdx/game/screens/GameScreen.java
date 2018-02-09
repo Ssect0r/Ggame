@@ -3,6 +3,7 @@ package com.mygdx.game.com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.loaders.AssetLoader;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -29,15 +30,15 @@ public class GameScreen implements Screen {
 
     Ggame ggame;
     Texture backgroud;
-//    Hud hud;
+
     public Player player;
     World world;
     Vector2 destination;
     float stateTime;
     public InputController inputControllerGame;
+    Music rainBackgroud;
 
-//    Room[] rooms;
-//    DeskRoom1 deskRoom1;
+
     Room1 room1;
     Room2 room2;
     ArrayList<Room> rooms;
@@ -61,6 +62,7 @@ public class GameScreen implements Screen {
         rooms.add(room1);
         rooms.add(room2);
         actualRoom= rooms.get(0);
+        rainBackgroud = Gdx.audio.newMusic(Gdx.files.internal("background.mp3"));
 
     }
 
@@ -74,13 +76,8 @@ public class GameScreen implements Screen {
             if (Gdx.input.isTouched()) {
 
                 if ( getFloor().height> ggame.cam.getInputInGameWorld().y && ggame.VIRTUAL_HEIGHT-getFloor().height< ggame.cam.getInputInGameWorld().y && ggame.gameScreen.getFloor().width > ggame.cam.getInputInGameWorld().x) {
-
                     destination = new Vector2(ggame.cam.getInputInGameWorld().x - PLAYER_WIDTH / 2, ggame.VIRTUAL_HEIGHT - 1 - ggame.cam.getInputInGameWorld().y - PLAYER_HEIGHT / 2);
-                    //destination=new Vector2(Gdx.input.getX() - player.getWidth()/2, ggame.VIRTUAL_HEIGHT - 1 - Gdx.input.getY() - player.getHeight()/2);
-
                     player.setDestination(destination.x, destination.y);
-
-//            ggame.hud.update();
                 }
             }
             player.movePlayer(delta);
@@ -104,15 +101,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+    rainBackgroud.play();
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0.15f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //ggame.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        //ggame.cam.update();
+
         stateTime+=delta;
 
         ggame.hud.stage.act(delta);
@@ -120,11 +116,6 @@ public class GameScreen implements Screen {
         ggame.batch.begin();
 
         update(delta);
-       //
-//        if(Gdx.input.isTouched())
-//        {
-//            System.out.println("X =" + Gdx.input.getX() + "Y =" + Gdx.input.getY());
-//        }
 
 
         if(actualRoom==rooms.get(0)) {
@@ -134,7 +125,6 @@ public class GameScreen implements Screen {
             ggame.batch.draw(player.animation[player.actualAnimation].getKeyFrame(stateTime, true), player.getCollisionRect().getX(), player.getCollisionRect().getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
             ggame.batch.draw(actualRoom.getItems(0).getSprite().getTexture(), actualRoom.getItems(0).objectX(), actualRoom.getItems(0).objectY(), actualRoom.getItems(0).getSprite().getWidth(), actualRoom.getItems(0).getSprite().getHeight());
         }
-        //actualRoom.getItems(0).getImButt().draw(ggame.batch,delta);
 
         if(actualRoom==rooms.get(1))
         {

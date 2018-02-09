@@ -20,7 +20,7 @@ public class GameCamera {
         viewport = new StretchViewport(width,height,camera);
         viewport.apply();
         camera.position.set(width/2,height/2,0);
-        //camera.setToOrtho(false, Ggame.VIRTUAL_WIDTH,Ggame.VIRTUAL_HEIGHT);
+
         camera.update();
     }
 

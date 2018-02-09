@@ -23,7 +23,6 @@ public class CollisionRect {
     public boolean collidesWith (CollisionRect rect) {
         return x < rect.x + rect.width && y < rect.y + rect.height && x + width > rect.x && y + height > rect.y;
     }
-
     public boolean collidesWithOnWidth(CollisionRect rect){
         return x < rect.x + rect.width && x + width > rect.x;
     }

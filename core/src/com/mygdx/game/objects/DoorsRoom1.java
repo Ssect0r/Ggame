@@ -96,8 +96,7 @@ public class DoorsRoom1 implements GameObject {
                             isOpened = true;
                             ggame.hud.getTalkingLabel().setText("Udalo mi sie otworzyc drzwi");
                             ggame.hud.removeItemFromHud();
-//
-//                        ggame.gameScreen.getPlayer().getCollisionRect().setX(15);
+
                         }
 
                         else{

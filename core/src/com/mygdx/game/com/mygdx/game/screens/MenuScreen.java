@@ -39,8 +39,7 @@ public class MenuScreen implements Screen {
         playButtonInactive = new Texture(Gdx.files.internal("play_button_inactive.png"));
         background = new Texture(Gdx.files.internal("MenuBackground.png"));
         MenuScreen menuScreen = this;
-//        inputController = new InputController();
-//        Gdx.input.setInputProcessor(inputController);
+
 
 
     }
@@ -69,13 +68,13 @@ public class MenuScreen implements Screen {
         }
 
 
-        if(ggame.cam.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH && ggame.cam.getInputInGameWorld().x >x && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT  && ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y > PLAY_BUTTON_Y )
+        if(ggame.cam.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH && ggame.cam.getInputInGameWorld().x >x &&
+                ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT  &&
+                ggame.VIRTUAL_HEIGHT - ggame.cam.getInputInGameWorld().y > PLAY_BUTTON_Y )
         {
             ggame.setMultiplexer();
            this.dispose();
             ggame.setScreen(ggame.gameScreen);
-//            ggame.multiplexer.removeProcessor(this.inputController);
-
         }
 
         ggame.batch.end();
@@ -114,7 +113,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-//    Gdx.input.setInputProcessor(null);
-//        this.dispose();
+
     }
 }

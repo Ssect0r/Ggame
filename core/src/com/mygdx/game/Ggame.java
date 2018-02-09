@@ -39,8 +39,7 @@ public class Ggame extends Game {
 		menuScreen = new MenuScreen(this);
 		multiplexer=new InputMultiplexer();
 
-//		multiplexer.addProcessor(gameScreen.inputControllerGame);
-//		multiplexer.addProcessor(menuScreen.inputController);
+
 		multiplexer.addProcessor(hud.stage);
 		Gdx.input.setInputProcessor(multiplexer);
 

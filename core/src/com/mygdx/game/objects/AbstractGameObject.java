@@ -38,14 +38,7 @@ public class AbstractGameObject implements  GameObject {
         this.doesNeedsDifferentItem=doesNeedsDifferentItem;
         this.isPickable=isPickable;
         this.isPicked=isPicked;
-//        myImageButtonTexture = new Texture(Gdx.files.internal("play_button_inactive.png"));
-//
-//        myImageButtonDrawable = new TextureRegionDrawable(new TextureRegion(myImageButtonTexture));
 
-//        myImageButton = new MyImageButton(myImageButtonDrawable,myImageButtonDrawable,myImageButtonDrawable);
-//        myImageButton.setSize(60,60);
-//        myImageButton.setVisible(true);
-//        myImageButton.setPosition(x,y);
     }
 
     @Override

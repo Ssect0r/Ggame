@@ -14,7 +14,7 @@ public class DeskRoom1 implements GameObject   {
     Sprite sprite;
     CollisionRect collisionRect;
     String name;
-    //InputAdapter inputAdapter;
+
 
 
 
@@ -31,8 +31,6 @@ public class DeskRoom1 implements GameObject   {
         abstractGameObject = new AbstractGameObject(this,sprite,x,y,true,false,false,false);
         name = "DeskRoom1";
 
-
-        //collisionRect = new CollisionRect(x,y,(int)sprite.getWidth(),(int)sprite.getHeight());
     }
 
 
@@ -46,19 +44,15 @@ public class DeskRoom1 implements GameObject   {
     public void avoidMe() {
 
         if(this.getCollistionRectObj().collidesWith(ggame.gameScreen.getPlayer().getCollisionRect()))
-        {
-            ggame.hud.getTalkingLabel().setText("Uwazaj !");
+        {   ggame.hud.getTalkingLabel().setText("Uwazaj !");
             if(this.getCollistionRectObj().collidesWithOnHeight(ggame.gameScreen.getPlayer().getCollisionRect())){
-                ggame.gameScreen.getPlayer().setDestination(this.getCollistionRectObj().getX() + this.getCollistionRectObj().getWidth(), this.getCollistionRectObj().getY() );
-            }
+                ggame.gameScreen.getPlayer().setDestination(this.getCollistionRectObj().getX()
+                        + this.getCollistionRectObj().getWidth(), this.getCollistionRectObj().getY() ); }
             if(this.getCollistionRectObj().collidesWithOnWidth(ggame.gameScreen.getPlayer().getCollisionRect()))
             {
-                ggame.gameScreen.getPlayer().setDestination(ggame.gameScreen.getPlayer().getCollisionRect().getX() , this.getCollistionRectObj().getY() + this.getCollistionRectObj().getHeight());
-            }
-
-
-        }
-    }
+                ggame.gameScreen.getPlayer().setDestination(ggame.gameScreen.getPlayer().getCollisionRect().getX() ,
+                        this.getCollistionRectObj().getY() + this.getCollistionRectObj().getHeight()); }
+        } }
 
     @Override
     public void blockPlayer() {
@@ -87,7 +81,7 @@ public class DeskRoom1 implements GameObject   {
                 if (this.collisionRect.collidesWith(ggame.gameScreen.getPlayer().getCollisionRect())) {
                     System.out.println("Stykamy się");
                 } else {
-                    System.out.println("Jestem zbyt daleko");
+                    ggame.hud.getTalkingLabel().setText("Stolik jest zbyt daleko");
                 }
             } else {
                 abstractGameObject.useMe();
@@ -150,43 +144,4 @@ public class DeskRoom1 implements GameObject   {
 
 
 
-    //    public boolean isUsable() {
-//        return isUsable;
-//    }
-//
-//    public void setUsable(boolean usable) {
-//        isUsable = usable;
-//    }
-//
-//    public boolean isInRange() {
-//        return isInRange;
-//    }
-//
-//    public void setInRange(boolean inRange) {
-//        isInRange = inRange;
-//    }
-//
-//    public boolean isDoesNeedsDifferentItem() {
-//        return doesNeedsDifferentItem;
-//    }
-//
-//    public void setDoesNeedsDifferentItem(boolean doesNeedsDifferentItem) {
-//        this.doesNeedsDifferentItem = doesNeedsDifferentItem;
-//    }
-//
-//    public boolean isPickable() {
-//        return isPickable;
-//    }
-//
-//    public void setPickable(boolean pickable) {
-//        isPickable = pickable;
-//    }
-//
-//    public boolean isPicked() {
-//        return isPicked;
-//    }
-//
-//    public void setPicked(boolean picked) {
-//        isPicked = picked;
-//    }
 }

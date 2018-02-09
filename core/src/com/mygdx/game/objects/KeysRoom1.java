@@ -69,7 +69,7 @@ public class KeysRoom1 implements GameObject {
                     this.abstractGameObject.setSprite();
                    this.setX(-100);
                    this.setY(-100);
-                    ggame.hud.getTalkingLabel().setText("To może się przydać");
+                    ggame.hud.getTalkingLabel().setText("To moze sie przydac!");
                     ggame.hud.getItemOnHud(this);
                 }
 

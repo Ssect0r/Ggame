@@ -47,89 +47,50 @@ public class Player {
 
 
     public Player(Ggame ggame, World world) {
-
         playerTextureSheet = new Texture("playerSprite.png");
-
-        collisionRect = new CollisionRect(ggame.VIRTUAL_WIDTH / 2, ggame.VIRTUAL_HEIGHT / 2 - PLAYER_HEIGHT_PIXEL, PLAYER_WIDTH_PIXEL, PLAYER_HEIGHT_PIXEL);
-
+        collisionRect = new CollisionRect(ggame.VIRTUAL_WIDTH / 2, ggame.VIRTUAL_HEIGHT / 2
+                - PLAYER_HEIGHT_PIXEL, PLAYER_WIDTH_PIXEL, PLAYER_HEIGHT_PIXEL);
         textureRegion = TextureRegion.split(playerTextureSheet, PLAYER_WIDTH_PIXEL, PLAYER_HEIGHT_PIXEL);
-        //this.world=world;
-        //this.ggame=ggame;
-
         animation = new Animation[5];
-//        textureFrames = new TextureRegion[16];
-//
-//        int index=0;
-//        for(int i=0;i<4;i++)
-//        {
-//            for(int j=0;j<4;j++)
-//            {
-//                textureFrames[index++]=textureRegion[j][i];
-//            }
-//        }
-        //animation[0] = new Animation<TextureRegion>(1f/4f,textureFrames[0] );
-        animation[0] = new Animation<TextureRegion>(1f / 4f, textureRegion[0][0]); // idle
-        animation[1] = new Animation<TextureRegion>(1f / 4f, textureRegion[0]); // going down
-        animation[2] = new Animation<TextureRegion>(1f / 4f, textureRegion[1]); // going left
-        animation[3] = new Animation<TextureRegion>(1f / 4f, textureRegion[2]); // going right
-        animation[4] = new Animation<TextureRegion>(1f / 4f, textureRegion[3]); // going up
+        animation[0] = new Animation<TextureRegion>(1f / 4f, textureRegion[0][0]);//idle
+        animation[1] = new Animation<TextureRegion>(1f / 4f, textureRegion[0]);//going down
+        animation[2] = new Animation<TextureRegion>(1f / 4f, textureRegion[1]);//going left
+        animation[3] = new Animation<TextureRegion>(1f / 4f, textureRegion[2]);//going right
+        animation[4] = new Animation<TextureRegion>(1f / 4f, textureRegion[3]);//going up
     }
 
 
-//    void CreateBody()
-//    {
-//        BodyDef bodyDef = new BodyDef();
-//        bodyDef.type=BodyDef.BodyType.KinematicBody;
-//        bodyDef.position.set(this.sprite.getX(),this.sprite.getY());
-//
-//        body = world.createBody(bodyDef);
-//
-//        PolygonShape shape = new PolygonShape();
-//        shape.setAsBox(sprite.getWidth()/45,sprite.getHeight()/45);
-//
-//        FixtureDef fixtureDef = new FixtureDef();
-//        fixtureDef.shape = shape;
-//        fixtureDef.density=1;
-//
-//        Fixture fixture = body.createFixture(fixtureDef);
-//
-//        shape.dispose();
-//    }
-
     public void movePlayer(float dt) {
-
-        Vector2 direction = new Vector2(collisionRect.getX() - destinationX, collisionRect.getY() - destinationY);
+        Vector2 direction = new Vector2(collisionRect.getX() - destinationX,
+                collisionRect.getY() - destinationY);
         direction.nor();
-        //Vector2 camInput = new Vector2( ggame.cam.getInputInGameWorld().x,ggame.cam.getInputInGameWorld().y);
-        //this.sprite.setPosition(collisionRect.getX() - direction.x,collisionRect.getY()-direction.y);
-
-//          if(ggame.gameScreen.getFloor().contains()
-//            if (destinationY > 15 && destinationX >15) {
-                if(destinationY>= collisionRect.getY() && destinationX ==collisionRect.getX())
+                if(destinationY>= collisionRect.getY() &&
+                        destinationX ==collisionRect.getX())
                 {
                     actualAnimation=4;
                 }
-
-                if(destinationY<collisionRect.getY() && destinationX==collisionRect.getX())
+                if(destinationY<collisionRect.getY() &&
+                        destinationX==collisionRect.getX())
                 {
                     actualAnimation=1;
                 }
-                if (destinationX >= collisionRect.getX() && destinationX - collisionRect.getX() > 1) {
+                if (destinationX >= collisionRect.getX() &&
+                        destinationX - collisionRect.getX() > 1) {
                     actualAnimation = 3;
                 }
-                else if (destinationX < collisionRect.getX() && collisionRect.getX() - destinationX > 1) {
+                else if (destinationX < collisionRect.getX() &&
+                        collisionRect.getX() - destinationX > 1) {
                     actualAnimation = 2;
                 }
-                else if ( collisionRect.getX()-destinationX<1 && destinationY-collisionRect.getY()<1){
+                else if ( collisionRect.getX()-destinationX<1 &&
+                        destinationY-collisionRect.getY()<1){
                     actualAnimation = 0;
                 }
-//        System.out.println("x < dir");
-
-
-                collisionRect.move(collisionRect.getX() - direction.x, collisionRect.getY() - direction.y);
+                collisionRect.move(collisionRect.getX() - direction.x,
+                        collisionRect.getY() - direction.y);
             }
-//        System.out.println("destinationX =" +destinationX + "destinationY =" +destinationY + " ActualX =" +collisionRect.getX() + "ActualY =" +collisionRect.getY());
-//        }
+
+
 
 
 
